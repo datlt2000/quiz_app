@@ -1,0 +1,20 @@
+{% extends 'home/base.html' %}
+
+{% block content %}
+<div class="py-4 container">
+    <div class="col-12 col-lg-8 mx-auto">
+        {% for quiz in quiz_list %}
+        <div class="card border-0">
+            <div class="d-flex">
+                <img src="/static/img/bg.jpg" class="align-self-center" style="width: 150px; height: 80px" />
+                <a class="card-body row text-decoration-none text-dark" href="{% url 'quiz:detail' quiz.id %}">
+                    <h3 class="card-title col-12">{{quiz.title}}</h3>
+                    <p class="card-text text-truncate col-10">{{ quiz.describe}}</p>
+                </a>
+            </div>
+        </div>
+        <hr />
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

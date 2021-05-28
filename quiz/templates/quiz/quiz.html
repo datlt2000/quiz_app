@@ -1,0 +1,62 @@
+{% extends "home/base.html" %}
+{% block content %}
+<div class="container">
+    <div class="col-12 col-lg-8 mx-auto bg-light my-5">
+        <h1>{{quiz.title}}</h1>
+        <p>{{quiz.describe}}</p>
+        <button class="btn-danger px-5 fs-3 fw-bold" id="test-btn">Test</button>
+        <div>
+            <h3 id="question"></h3>
+            <div id="choice"></div>
+            <div id="control" class="my-3">
+                <button id="next" class="btn btn-primary btn-lg" style="display: none;">Next</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        var index = 0;
+        var data = null;
+        const test = () => {
+            document.getElementById("test-btn").style.display = "none";
+            $.ajax({
+                type: "GET",
+                url: "{% url 'quiz:get-question' %}",
+                data: { quiz: "{{quiz.id}}" },
+                success: function (response) {
+                    data = response.data
+                    document.getElementById("question").innerHTML = response.data[0].question_text;
+                    document.getElementById("next").style.display = "inline";
+                    for (var c of response.data[0].choice) {
+                        document.getElementById("choice").innerHTML += `<div class="py-2 px-2 fs-4">
+                                <input type="radio" name="choice" style="height: 20px; width: 20px; margin-right: 15px" value=${c.choice_text}/>
+                                <label>${c.choice_text}</label>
+                                </div>`;
+                    }
+                },
+                error: function (error) {
+                    console.log(error);
+                    document.getElementById("question").innerHTML = "Some thing wrong...";
+                }
+            })
+        }
+        const next = () => {
+            index += 1
+            if (index + 1 > data.length) {
+                document.getElementById("control").innerHTML = `<a class="text-center btn btn-success btn-lg" href="{% url 'home:index' %}">Submit</a>`
+            }
+            else {
+                document.getElementById("question").innerHTML = data[index].question_text;
+                document.getElementById("choice").innerHTML = "";
+                for (var c of data[index].choice) {
+                    document.getElementById("choice").innerHTML += `<div class="py-2 px-2 fs-4">
+                                <input type="radio" name="choice" style="height: 20px; width: 20px; margin-right: 15px" value=${c.choice_text}/>
+                                <label>${c.choice_text}</label>
+                                </div>`;
+                }
+            }
+        }
+        document.getElementById("test-btn").addEventListener("click", () => { test() });
+        document.getElementById("next").addEventListener("click", () => { next() });
+    </script>
+</div>
+{% endblock %}

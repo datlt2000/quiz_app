@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Quiz</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+        crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+</head>
+
+<body>
+    <div class="navbar navbar-expand-lg navbar-light bg-light" style="border-bottom: 3px solid red;">
+        <div class="container">
+            <a class="navbar-brand fs-2 fw-bold text-danger" href="{% url 'home:index' %}">Quiz</a>
+            <button class="navbar-toggler mr-auto" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+                <ul class="navbar-nav">
+                    <li class="nav-item mx-2"><a class="nav-link fs-5" href="#">Sport</a></li>
+                    <li class="nav-item mx-2"><a class="nav-link fs-5" href="#">Arts</a></li>
+                    <li class="nav-item mx-2"><a class="nav-link fs-5" href="#">Game</a></li>
+                    <li class="nav-item mx-2"><a class="nav-link fs-5" href="#">IQ</a></li>
+                    <li class="nav-item mx-2"><a class="nav-link fs-5" href="#">language</a></li>
+                </ul>
+                <form class="d-flex align-items-center mb-0 ml-2">
+                    {% if user.is_authenticated %}
+                    <div class="fs-5 fw-bold">
+                        {{user.username}}
+                        <span class="fs-3">/</span>
+                        <a role="button" class="btn fs-5 pl-0 fw-bold" href="{% url 'logout' %}">Logout</a>
+                    </div>
+                    {% else %}
+                    <div>
+                        <a role="button" class="btn fs-5 pr-0 fw-bold" href="{% url 'login' %}">Login</a>
+                        <span class="fs-3">/</span>
+                        <a role="button" class="btn fs-5 pl-0 fw-bold" href="{% url 'user:register' %}">Register</a>
+                    </div>
+                    {% endif %}
+                    <a href="{% url 'make_quiz:create' %}" class="btn btn-danger btn-lg">New Quiz</a>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% block content%}
+    {% endblock%}
+    <footer class="bg-light">
+        <div class="container d-flex justify-content-around py-3">
+            <div class="fs-3 fw-bold text-danger">Quiz</div>
+            <div>
+                <div role="button">
+                    <span class="m-2"><i class="fab fa-facebook text-primary"></i></span>
+                    Facebook.com
+                </div>
+                <div role="button">
+                    <span class="m-2"><i class="fab fa-linkedin text-danger"></i></span>
+                    linkedin.com
+                </div>
+                <div role="button">
+                    <span class="m-2"><i class="fab fa-github"></i></span>
+                    github.com
+                </div>
+            </div>
+        </div>
+        <p class="text-center mb-0 pb-2">https://quiz.com</p>
+    </footer>
+</body>
+
+</html>
