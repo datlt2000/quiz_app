@@ -2,12 +2,12 @@
 This is web application that privide free tools to make and share quizzes. This is useful when teacher want to make a test for their student
 This web has written by django
 # environment
-python 3.8.2
-django 3.2.2
+*python 3.8.2
+*django 3.2.2
 # Setting
-git clone https://github.com/datlt2000/quiz_app.git
+`git clone https://github.com/datlt2000/quiz_app.git
 cd quiz_app
-pip install django
+pip install django`
 ## set database
 this project using dbLite3 for database
 python3 manage.py migrate
